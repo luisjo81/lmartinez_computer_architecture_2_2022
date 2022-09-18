@@ -18,10 +18,10 @@ class Memory:
                                [B2 state, B2 address, B2 value, B2 valid bit],
                                [B3 state, B3 address, B3 value, B3 valid bit]]
         """
-        self.p0_Cache = [["I", "000", "0000", "0"], ["I", "000", "0000", "0"], ["I", "000", "0000", "0"], ["I", "000", "0000", "0"]]
-        self.p1_Cache = [["I", "000", "0000", "0"], ["I", "000", "0000", "0"], ["I", "000", "0000", "0"], ["I", "000", "0000", "0"]]
-        self.p2_Cache = [["I", "000", "0000", "0"], ["I", "000", "0000", "0"], ["I", "000", "0000", "0"], ["I", "000", "0000", "0"]]
-        self.p3_Cache = [["I", "000", "0000", "0"], ["I", "000", "0000", "0"], ["I", "000", "0000", "0"], ["I", "000", "0000", "0"]]
+        self.p0_cache = [["I", "000", "0000", "0"], ["I", "000", "0000", "0"], ["I", "000", "0000", "0"], ["I", "000", "0000", "0"]]
+        self.p1_cache = [["I", "000", "0000", "0"], ["I", "000", "0000", "0"], ["I", "000", "0000", "0"], ["I", "000", "0000", "0"]]
+        self.p2_cache = [["I", "000", "0000", "0"], ["I", "000", "0000", "0"], ["I", "000", "0000", "0"], ["I", "000", "0000", "0"]]
+        self.p3_cache = [["I", "000", "0000", "0"], ["I", "000", "0000", "0"], ["I", "000", "0000", "0"], ["I", "000", "0000", "0"]]
 
     def read_from_memory(self, address):
         address_index = int(address, 2)
@@ -34,17 +34,36 @@ class Memory:
     def write_to_cache(self, mem_address, cache_num, value):
         cache_index = self.get_cache_index(mem_address)
         if cache_num == 0:
-            self.p0_Cache[cache_index][1] = mem_address
-            self.p0_Cache[cache_index][2] = value
+            self.p0_cache[cache_index][1] = mem_address
+            self.p0_cache[cache_index][2] = value
         if cache_num == 1:
-            self.p1_Cache[cache_index][1] = mem_address
-            self.p1_Cache[cache_index][2] = value
+            self.p1_cache[cache_index][1] = mem_address
+            self.p1_cache[cache_index][2] = value
         if cache_num == 2:
-            self.p2_Cache[cache_index][1] = mem_address
-            self.p2_Cache[cache_index][2] = value
+            self.p2_cache[cache_index][1] = mem_address
+            self.p2_cache[cache_index][2] = value
         if cache_num == 3:
-            self.p3_Cache[cache_index][1] = mem_address
-            self.p3_Cache[cache_index][2] = value
+            self.p3_cache[cache_index][1] = mem_address
+            self.p3_cache[cache_index][2] = value
+    
+    #Function to change the state of a block in a cache
+    def change_cache_block_state(self, processor, address, new_state):
+        if processor == 0:
+            for i in self.p0_cache:
+                if (i[1] == address):
+                    i[0] = new_state
+        if processor == 1:
+            for i in self.p1_cache:
+                if (i[1] == address):
+                    i[0] = new_state
+        if processor == 2:
+            for i in self.p2_cache:
+                if (i[1] == address):
+                    i[0] = new_state
+        if processor == 3:
+            for i in self.p3_cache:
+                if (i[1] == address):
+                    i[0] = new_state
 
     #Function to get cache index based on the one-way associativity
     def get_cache_index(mem_address):
