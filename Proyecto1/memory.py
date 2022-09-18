@@ -75,3 +75,50 @@ class Memory:
             return 2
         if (mem_address == "011") or (mem_address == "111"):
             return 3
+
+    #Function to check data exclusivity in caches
+    def check_exclusivity(self, processor, address):
+        if processor == 0:
+            for i in self.p1_cache:
+                if i[1] == address:
+                    return False
+            for i in self.p2_cache:
+                if i[1] == address:
+                    return False
+            for i in self.p3_cache:
+                if i[1] == address:
+                    return False
+            return True
+        if processor == 1:
+            for i in self.p0_cache:
+                if i[1] == address:
+                    return False
+            for i in self.p2_cache:
+                if i[1] == address:
+                    return False
+            for i in self.p3_cache:
+                if i[1] == address:
+                    return False
+            return True
+        if processor == 2:
+            for i in self.p0_cache:
+                if i[1] == address:
+                    return False
+            for i in self.p1_cache:
+                if i[1] == address:
+                    return False
+            for i in self.p3_cache:
+                if i[1] == address:
+                    return False
+            return True
+        if processor == 3:
+            for i in self.p0_cache:
+                if i[1] == address:
+                    return False
+            for i in self.p1_cache:
+                if i[1] == address:
+                    return False
+            for i in self.p2_cache:
+                if i[1] == address:
+                    return False
+            return True
