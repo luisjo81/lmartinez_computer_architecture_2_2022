@@ -25,24 +25,24 @@ class Controller:
     """
 
     #Function to change state in cache block
-    def change_state(self, processor, current_state, action, address, value):
+    def change_state(self, processor, block, current_state, address, value, action):
         if current_state == "M":
-        
+            if action == "READ":
+                print("P" + processor + " Cache Read Hit")
+            if action == "WRITE":
+                print("P" + processor + " Cache Write Hit")
+                memory.write_to_cache(address, processor, value)
+
         if current_state == "E":
             if action == "READ":
+                print("P" + processor + " Cache Read Hit")
+            if action == "WRITE":
+                print("P" + processor + " Cache Write Hit")
+                memory.write_to_cache(address, processor, value)
 
         if current_state == "S":
-
-        
-        if current_state == "I":
             if action == "READ":
+                print("P" + processor + " Cache Read Hit")
 
-            if action == "WRITE":
-                print("Processor " + str(processor) + ": Write Miss")
-                memory.write_to_cache(address, processor, value)
-                print("Processor " + str(processor) + " State: Changing from I to M")
-                memory.change_cache_block_state(processor, address, "M")
-            
+        if current_state == "I":
 
-                
-                
