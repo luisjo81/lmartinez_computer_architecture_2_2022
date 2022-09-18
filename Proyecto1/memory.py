@@ -33,6 +33,9 @@ class Memory:
     def write_to_memory(self, address, value):
         address_index = int(address, 2)
         self.main_memory[address_index][1] = value
+    
+    #Function to check if a READ in cache is a hit (True) or a miss (False)
+    #def check_read_cache(self, processor, address):
 
     def write_to_cache(self, mem_address, cache_num, value):
         cache_index = self.get_cache_index(mem_address)
@@ -49,6 +52,17 @@ class Memory:
             self.p3_cache[cache_index][1] = mem_address
             self.p3_cache[cache_index][2] = value
     
+    #Function to get the actual state of a cache block
+    def get_cache_block_state(self, processor, block):
+        if processor == 0:
+            return self.p0_cache[block][0]
+        if processor == 1:
+            return self.p1_cache[block][0]
+        if processor == 2:
+            return self.p2_cache[block][0]
+        if processor == 3:
+            return self.p3_cache[block][0]
+
     #Function to change the state of a block in a cache
     def change_cache_block_state(self, processor, address, new_state):
         if processor == 0:
