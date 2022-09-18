@@ -1,3 +1,6 @@
+from audioop import add
+
+
 class Memory:
     def __init__(self):
         """
@@ -122,3 +125,11 @@ class Memory:
                 if i[1] == address:
                     return False
             return True
+
+    #Function to check if a value in memory is the latest
+    def is_latest_value_in_memory(self, address, value):
+        mem_value = self.read_from_memory(address)
+        if mem_value == value:
+            return True
+        else:
+            return False
