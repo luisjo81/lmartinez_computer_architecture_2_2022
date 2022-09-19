@@ -28,7 +28,10 @@ class Controller:
     def change_state(self, processor, block, current_state, address, value, action):
         if current_state == "M":
             if action == "READ":
-                print("P" + processor + " Cache Read Hit")
+                if memory.is_address_in_cache(processor, address) == True:
+                    print("P" + processor + " Cache Read Hit")
+                else:
+                    print("P" + processor + " Cache Read Miss")
             if action == "WRITE":
                 print("P" + processor + " Cache Write Hit")
                 memory.write_to_cache(address, processor, value)
@@ -47,4 +50,9 @@ class Controller:
                 print("P" + processor + " Cache Read Hit")
 
         if current_state == "I":
+            if action == "READ":
+                if memory.is_address_in_cache(processor, address) == False:
+                     print("P" + processor + " Cache Read Miss")
 
+    #Function to modifiy watchers
+    #def modify_watchers():
