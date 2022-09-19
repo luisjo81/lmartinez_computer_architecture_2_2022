@@ -47,12 +47,14 @@ class Controller:
 
         if current_state == "S":
             if action == "READ":
-                print("P" + processor + " Cache Read Hit")
+                if memory.is_address_in_cache(processor, address) == True:
+                    print("P" + processor + " Cache Read Hit")
+                else:
+                    print("P" + processor + " Cache Read Miss")
 
         if current_state == "I":
             if action == "READ":
                 if memory.is_address_in_cache(processor, address) == False:
                      print("P" + processor + " Cache Read Miss")
 
-    #Function to modifiy watchers
-    #def modify_watchers():
+    def update_watchers(self, processor, )
