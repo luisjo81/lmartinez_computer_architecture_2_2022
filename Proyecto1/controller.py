@@ -39,6 +39,8 @@ class Controller:
             if action == "WRITE":
                 print("P" + processor + " Cache Write Hit")
                 memory.write_to_cache(address, processor, value)
+                print("P" + processor + ": B" + block + " Changed to M")
+                memory.change_cache_block_state(processor, address, "M")
 
         if current_state == "S":
             if action == "READ":
