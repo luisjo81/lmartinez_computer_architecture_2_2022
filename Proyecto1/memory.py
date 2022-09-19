@@ -140,6 +140,29 @@ class Memory:
                     return False
             return True
 
+    #Function to check if a cache is a watcher on a specific address
+    def is_cache_a_watcher(self, processor, address):
+        if processor == 0:
+            for i in self.p0_cache:
+                if i[1] == address:
+                    return True
+            return False
+        if processor == 1:
+            for i in self.p1_cache:
+                if i[1] == address:
+                    return True
+            return False
+        if processor == 2:
+            for i in self.p2_cache:
+                if i[1] == address:
+                    return True
+            return False
+        if processor == 3:
+            for i in self.p3_cache:
+                if i[1] == address:
+                    return True
+            return False
+
     #Function to check if a value in memory is the latest
     def is_latest_value_in_memory(self, address, value):
         mem_value = self.read_from_memory(address)
