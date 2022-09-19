@@ -46,6 +46,71 @@ class Memory:
             self.p3_cache[cache_index][1] = mem_address
             self.p3_cache[cache_index][2] = value
     
+    #Function to read an address from other cache in case of read miss
+    #If address can't be found in caches, it will read from memory
+    def read_from_other_cache(self, processor, address):
+        if processor == 0:
+            for i in self.p1_cache:
+                if i[1] == address:
+                    print("Address " + address + " found on cache from P1")
+                    return i[2]
+            for i in self.p2_cache:
+                if i[1] == address:
+                    print("Address " + address + " found on cache from P2")
+                    return i[2]
+            for i in self.p3_cache:
+                if i[1] == address:
+                    print("Address " + address + " found on cache from P3")
+                    return i[2]
+            print("Address " + address + " not nound on any cache. Retrieving value from memory")
+            return self.read_from_memory(address)
+        if processor == 1:
+            for i in self.p0_cache:
+                if i[1] == address:
+                    print("Address " + address + " found on cache from P0")
+                    return i[2]
+            for i in self.p2_cache:
+                if i[1] == address:
+                    print("Address " + address + " found on cache from P2")
+                    return i[2]
+            for i in self.p3_cache:
+                if i[1] == address:
+                    print("Address " + address + " found on cache from P3")
+                    return i[2]
+            print("Address " + address + " not nound on any cache. Retrieving value from memory")
+            return self.read_from_memory(address)
+        if processor == 2:
+            for i in self.p0_cache:
+                if i[1] == address:
+                    print("Address " + address + " found on cache from P0")
+                    return i[2]
+            for i in self.p1_cache:
+                if i[1] == address:
+                    print("Address " + address + " found on cache from P1")
+                    return i[2]
+            for i in self.p3_cache:
+                if i[1] == address:
+                    print("Address " + address + " found on cache from P3")
+                    return i[2]
+            print("Address " + address + " not nound on any cache. Retrieving value from memory")
+            return self.read_from_memory(address)
+        if processor == 3:
+            for i in self.p0_cache:
+                if i[1] == address:
+                    print("Address " + address + " found on cache from P0")
+                    return i[2]
+            for i in self.p1_cache:
+                if i[1] == address:
+                    print("Address " + address + " found on cache from P1")
+                    return i[2]
+            for i in self.p2_cache:
+                if i[1] == address:
+                    print("Address " + address + " found on cache from P2")
+                    return i[2]
+            print("Address " + address + " not nound on any cache. Retrieving value from memory")
+            return self.read_from_memory(address)
+
+    
     #Function to get the actual state of a cache block
     def get_cache_block_state(self, processor, block):
         if processor == 0:
@@ -228,6 +293,10 @@ class Memory:
                     if i[0] == "E":
                         print("P" + processor + ": B" + block + " Changed to I")
                         self.change_cache_block_state(processor, address, "I")
+                    if i[0] == "S":
+                        print("P" + processor + ": B" + block + " Changed to I")
+                        self.change_cache_block_state(processor, address, "I")
+
                 block = block + 1
             block = 0
             for i in self.p2_cache:
