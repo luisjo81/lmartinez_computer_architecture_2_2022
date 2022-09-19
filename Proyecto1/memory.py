@@ -33,9 +33,6 @@ class Memory:
     def write_to_memory(self, address, value):
         address_index = int(address, 2)
         self.main_memory[address_index][1] = value
-    
-    #Function to check if a READ in cache is a hit (True) or a miss (False)
-    #def check_read_cache(self, processor, address):
 
     def write_to_cache(self, mem_address, cache_num, value):
         cache_index = self.get_cache_index(mem_address)
@@ -140,8 +137,8 @@ class Memory:
                     return False
             return True
 
-    #Function to check if a cache is a watcher on a specific address
-    def is_cache_a_watcher(self, processor, address):
+    #Function to check if a address is in cache
+    def is_address_in_cache(self, processor, address):
         if processor == 0:
             for i in self.p0_cache:
                 if i[1] == address:
@@ -170,3 +167,18 @@ class Memory:
             return True
         else:
             return False
+
+    #Function to separete the elements from an instruction
+    def separate_instruction(self, instruction):
+        # [processor, operation, address, value]
+        instruction_parts = []
+        instruction_parts = instruction_parts + [instruction[1]]
+        if instruction[4] == "C":
+            instruction_parts = instruction_parts + ["CALC"]
+            return instruction_parts
+        if instruction[4] == "R":
+            instruction_parts = instruction_parts + ["READ"] + [instruction[9:]]
+            return instruction_parts
+        if instruction[4] == "W":
+            instruction_parts = instruction_parts + ["WRITE"] + [instruction[10:13]] + [instruction[14:]]
+            return instruction_parts
