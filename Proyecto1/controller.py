@@ -54,6 +54,11 @@ class Controller:
                     print("P" + processor + " Cache Read Hit")
                 else:
                     print("P" + processor + " Cache Read Miss")
+            if action == "WRITE":
+                print("P" + processor + " Cache Write Hit")
+                memory.write_to_cache(address, processor, value)
+                print("P" + processor + ": B" + block + " Changed to M")
+                memory.change_cache_block_state(processor, address, "M")
 
         if current_state == "I":
             if action == "READ":
@@ -71,7 +76,7 @@ class Controller:
                 memory.write_to_cache(address, processor, value)
                 print("P" + processor + ": B" + block + " Changed to M")
                 memory.change_cache_block_state(processor, address, "M")
-                
+
     #Function to separete the elements from an instruction
     def separate_instruction(self, instruction):
         # [processor, operation, address, value]
