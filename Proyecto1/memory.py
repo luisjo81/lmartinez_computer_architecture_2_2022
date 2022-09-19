@@ -560,18 +560,3 @@ class Memory:
             return True
         else:
             return False
-
-    #Function to separete the elements from an instruction
-    def separate_instruction(self, instruction):
-        # [processor, operation, address, value]
-        instruction_parts = []
-        instruction_parts = instruction_parts + [instruction[1]]
-        if instruction[4] == "C":
-            instruction_parts = instruction_parts + ["CALC"]
-            return instruction_parts
-        if instruction[4] == "R":
-            instruction_parts = instruction_parts + ["READ"] + [instruction[9:]]
-            return instruction_parts
-        if instruction[4] == "W":
-            instruction_parts = instruction_parts + ["WRITE"] + [instruction[10:13]] + [instruction[14:]]
-            return instruction_parts
