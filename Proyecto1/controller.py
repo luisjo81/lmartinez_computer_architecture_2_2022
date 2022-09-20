@@ -92,18 +92,24 @@ class Controller:
             instruction_parts = instruction_parts + ["WRITE"] + [instruction[10:13]] + [instruction[14:]]
             return instruction_parts
     
-    
-
 cont = Controller()
 
-print("Instrucción P0: WRITE 010;ABCD")
-cont.change_state(0, 2, "I", "010", "ABCD", "WRITE")
-cont.mem.print_cache()
+#print("Instrucción P0: WRITE 010;ABCD")
+#cont.change_state(0, 2, "I", "010", "ABCD", "WRITE")
+#cont.mem.print_cache()
+#cont.mem.print_memory()
 
-print("Instrucción P2: WRITE 111;01EC")
-cont.change_state(2, 4, "I", "111", "01EC", "WRITE")
-cont.mem.print_cache()
+#print("Instrucción P2: WRITE 111;01EC")
+#cont.change_state(2, 4, "I", "111", "01EC", "WRITE")
+#cont.mem.print_cache()
+#cont.mem.print_memory()
 
 print("Instrucción P1: WRITE 000;1010")
 cont.change_state(1, 0, "I", "000", "1010", "WRITE")
 cont.mem.print_cache()
+cont.mem.print_memory()
+
+print("Instrucción P3: WRITE 000;CDEF")
+cont.change_state(3, 0, "I", "000", "CDEF", "WRITE")
+cont.mem.print_cache()
+cont.mem.print_memory()
