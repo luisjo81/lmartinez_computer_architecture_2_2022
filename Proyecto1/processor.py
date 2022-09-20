@@ -4,7 +4,6 @@ import numpy as np
 class Processor:
     def __init__(self, num_processor):
         self.num_processor = num_processor
-        pass
     
     #Function to generate a random instruction
     def instruction_generator(self):
