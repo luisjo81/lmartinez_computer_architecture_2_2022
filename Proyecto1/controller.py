@@ -1,6 +1,6 @@
-import Memory
-import Processor
-import Gui
+from memory import Memory
+#import Processor
+#import Gui
 
 import threading
 import time
@@ -8,7 +8,7 @@ import time
 class Controller:
     def __init__(self):
         self.wait_time = 3
-        memory = Memory()
+        self.mem = Memory()
 
     """
     def threads_manager(self):
@@ -28,54 +28,54 @@ class Controller:
     def change_state(self, processor, block, current_state, address, value, action):
         if current_state == "M":
             if action == "READ":
-                if memory.is_address_in_cache(processor, address) == True:
-                    print("P" + processor + " Cache Read Hit")
+                if self.mem.is_address_in_cache(processor, address) == True:
+                    print("P" + str(processor) + " Cache Read Hit")
                     #DISPLAY IN GUI
                 else:
-                    print("P" + processor + " Cache Read Miss")
-                    read_value = memory.read_from_other_cache(processor, address)
+                    print("P" + str(processor) + " Cache Read Miss")
+                    read_value = self.mem.read_from_other_cache(processor, address)
                     #DISPLAY IN GUI
             if action == "WRITE":
-                print("P" + processor + " Cache Write Hit")
-                memory.write_to_cache(address, processor, value)
+                print("P" + str(processor) + " Cache Write Hit")
+                self.mem.write_to_cache(address, processor, value)
 
         if current_state == "E":
             if action == "READ":
-                print("P" + processor + " Cache Read Hit")
+                print("P" + str(processor) + " Cache Read Hit")
             if action == "WRITE":
-                print("P" + processor + " Cache Write Hit")
-                memory.write_to_cache(address, processor, value)
-                print("P" + processor + ": B" + block + " Changed to M")
-                memory.change_cache_block_state(processor, address, "M")
+                print("P" + str(processor) + " Cache Write Hit")
+                self.mem.write_to_cache(address, processor, value)
+                print("P" + str(processor) + ": B" + str(block) + " Changed to M")
+                self.mem.change_cache_block_state(processor, address, "M")
 
         if current_state == "S":
             if action == "READ":
-                if memory.is_address_in_cache(processor, address) == True:
-                    print("P" + processor + " Cache Read Hit")
+                if self.mem.is_address_in_cache(processor, address) == True:
+                    print("P" + str(processor) + " Cache Read Hit")
                 else:
-                    print("P" + processor + " Cache Read Miss")
+                    print("P" + str(processor) + " Cache Read Miss")
             if action == "WRITE":
-                print("P" + processor + " Cache Write Hit")
-                memory.write_to_cache(address, processor, value)
-                print("P" + processor + ": B" + block + " Changed to M")
-                memory.change_cache_block_state(processor, address, "M")
+                print("P" + str(processor) + " Cache Write Hit")
+                self.mem.write_to_cache(address, processor, value)
+                print("P" + str(processor) + ": B" + str(block) + " Changed to M")
+                self.mem.change_cache_block_state(processor, address, "M")
 
         if current_state == "I":
             if action == "READ":
-                if memory.is_address_in_cache(processor, address) == False:
-                    print("P" + processor + " Cache Read Miss")
-                    read_value = memory.read_from_other_cache(processor, address)
-                    if memory.is_latest_value_in_memory(address, read_value) == True:
-                        print("P" + processor + ": B" + block + " Changed to E")
-                        memory.change_cache_block_state(processor, address, "E")
+                if self.mem.is_address_in_cache(processor, address) == False:
+                    print("P" + str(processor) + " Cache Read Miss")
+                    read_value = self.mem.read_from_other_cache(processor, address)
+                    if self.mem.is_latest_value_in_memory(address, read_value) == True:
+                        print("P" + str(processor) + ": B" + str(block) + " Changed to E")
+                        self.mem.change_cache_block_state(processor, address, "E")
                     else:
-                        print("P" + processor + ": B" + block + " Changed to S")
-                        memory.change_cache_block_state(processor, address, "S")
+                        print("P" + str(processor) + ": B" + str(block) + " Changed to S")
+                        self.mem.change_cache_block_state(processor, address, "S")
             if action == "WRITE":
-                print("P" + processor + " Cache Write Hit")
-                memory.write_to_cache(address, processor, value)
-                print("P" + processor + ": B" + block + " Changed to M")
-                memory.change_cache_block_state(processor, address, "M")
+                print("P" + str(processor) + " Cache Write Hit")
+                self.mem.write_to_cache(address, processor, value)
+                print("P" + str(processor) + ": B" + str(block) + " Changed to M")
+                self.mem.change_cache_block_state(processor, address, "M")
 
     #Function to separete the elements from an instruction
     def separate_instruction(self, instruction):
@@ -91,3 +91,19 @@ class Controller:
         if instruction[4] == "W":
             instruction_parts = instruction_parts + ["WRITE"] + [instruction[10:13]] + [instruction[14:]]
             return instruction_parts
+    
+    
+
+cont = Controller()
+
+print("Instrucción P0: WRITE 010;ABCD")
+cont.change_state(0, 2, "I", "010", "ABCD", "WRITE")
+cont.mem.print_cache()
+
+print("Instrucción P2: WRITE 111;01EC")
+cont.change_state(2, 4, "I", "111", "01EC", "WRITE")
+cont.mem.print_cache()
+
+print("Instrucción P1: WRITE 000;1010")
+cont.change_state(1, 0, "I", "000", "1010", "WRITE")
+cont.mem.print_cache()
