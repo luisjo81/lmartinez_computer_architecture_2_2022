@@ -45,7 +45,7 @@ class Controller:
             if action == "WRITE":
                 print("P" + str(processor) + " Cache Write Hit")
                 self.mem.write_to_cache(address, processor, value)
-                print("P" + str(processor) + ": B" + str(block) + " Changed to M")
+                print("P" + str(processor) + ":B" + str(block) + " Changed to M")
                 self.mem.change_cache_block_state(processor, address, "M")
 
         if current_state == "S":
@@ -57,7 +57,7 @@ class Controller:
             if action == "WRITE":
                 print("P" + str(processor) + " Cache Write Hit")
                 self.mem.write_to_cache(address, processor, value)
-                print("P" + str(processor) + ": B" + str(block) + " Changed to M")
+                print("P" + str(processor) + ":B" + str(block) + " Changed to M")
                 self.mem.change_cache_block_state(processor, address, "M")
 
         if current_state == "I":
@@ -66,15 +66,15 @@ class Controller:
                     print("P" + str(processor) + " Cache Read Miss")
                     read_value = self.mem.read_from_other_cache(processor, address)
                     if self.mem.is_latest_value_in_memory(address, read_value) == True:
-                        print("P" + str(processor) + ": B" + str(block) + " Changed to E")
+                        print("P" + str(processor) + ":B" + str(block) + " Changed to E")
                         self.mem.change_cache_block_state(processor, address, "E")
                     else:
-                        print("P" + str(processor) + ": B" + str(block) + " Changed to S")
+                        print("P" + str(processor) + ":B" + str(block) + " Changed to S")
                         self.mem.change_cache_block_state(processor, address, "S")
             if action == "WRITE":
                 print("P" + str(processor) + " Cache Write Hit")
                 self.mem.write_to_cache(address, processor, value)
-                print("P" + str(processor) + ": B" + str(block) + " Changed to M")
+                print("P" + str(processor) + ":B" + str(block) + " Changed to M")
                 self.mem.change_cache_block_state(processor, address, "M")
 
     #Function to separete the elements from an instruction
