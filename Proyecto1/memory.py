@@ -61,17 +61,17 @@ class Memory:
             for i in self.p1_cache:
                 if i[1] == address:
                     print("Address " + str(address) + " found on cache from P1")
-                    self.modify_watchers_read(address)
+                    self.modify_watchers_read(processor, address)
                     return i[2]
             for i in self.p2_cache:
                 if i[1] == address:
                     print("Address " + str(address) + " found on cache from P2")
-                    self.modify_watchers_read(address)
+                    self.modify_watchers_read(processor, address)
                     return i[2]
             for i in self.p3_cache:
                 if i[1] == address:
                     print("Address " + str(address) + " found on cache from P3")
-                    self.modify_watchers_read(address)
+                    self.modify_watchers_read(processor, address)
                     return i[2]
             print("Address " + str(address) + " not nound on any cache. Retrieving value from memory")
             return self.read_from_memory(address)
@@ -79,17 +79,17 @@ class Memory:
             for i in self.p0_cache:
                 if i[1] == address:
                     print("Address " + str(address) + " found on cache from P0")
-                    self.modify_watchers_read(address)
+                    self.modify_watchers_read(processor, address)
                     return i[2]
             for i in self.p2_cache:
                 if i[1] == address:
                     print("Address " + str(address) + " found on cache from P2")
-                    self.modify_watchers_read(address)
+                    self.modify_watchers_read(processor, address)
                     return i[2]
             for i in self.p3_cache:
                 if i[1] == address:
                     print("Address " + str(address) + " found on cache from P3")
-                    self.modify_watchers_read(address)
+                    self.modify_watchers_read(processor, address)
                     return i[2]
             print("Address " + str(address) + " not nound on any cache. Retrieving value from memory")
             return self.read_from_memory(address)
@@ -97,17 +97,17 @@ class Memory:
             for i in self.p0_cache:
                 if i[1] == address:
                     print("Address " + str(address) + " found on cache from P0")
-                    self.modify_watchers_read(address)
+                    self.modify_watchers_read(processor, address)
                     return i[2]
             for i in self.p1_cache:
                 if i[1] == address:
                     print("Address " + str(address) + " found on cache from P1")
-                    self.modify_watchers_read(address)
+                    self.modify_watchers_read(processor, address)
                     return i[2]
             for i in self.p3_cache:
                 if i[1] == address:
                     print("Address " + str(address) + " found on cache from P3")
-                    self.modify_watchers_read(address)
+                    self.modify_watchers_read(processor, address)
                     return i[2]
             print("Address " + str(address) + " not nound on any cache. Retrieving value from memory")
             return self.read_from_memory(address)
@@ -115,17 +115,17 @@ class Memory:
             for i in self.p0_cache:
                 if i[1] == address:
                     print("Address " + str(address) + " found on cache from P0")
-                    self.modify_watchers_read(address)
+                    self.modify_watchers_read(processor, address)
                     return i[2]
             for i in self.p1_cache:
                 if i[1] == address:
                     print("Address " + str(address) + " found on cache from P1")
-                    self.modify_watchers_read(address)
+                    self.modify_watchers_read(processor,address)
                     return i[2]
             for i in self.p2_cache:
                 if i[1] == address:
                     print("Address " + str(address) + " found on cache from P2")
-                    self.modify_watchers_read(address)
+                    self.modify_watchers_read(processor, address)
                     return i[2]
             print("Address " + str(address) + " not nound on any cache. Retrieving value from memory")
             return self.read_from_memory(address)

@@ -1,28 +1,66 @@
+from threading import Thread, Lock
+import time
+
 from memory import Memory
 from processor import Processor
 #import Gui
 
-import threading
-import time
-
 class Controller:
     def __init__(self):
         self.wait_time = 3
+        self.memory_delay = 2
         self.mem = Memory()
-        self.proce = Processor(0)
-    """
-    def threads_manager(self):
-        p0_thread = threading.Thread(target = processor, args = ())
-        p1_thread = threading.Thread(target = processor, args = ())
-        p2_thread = threading.Thread(target = processor, args = ())
-        p3_thread = threading.Thread(target = processor, args = ())
+        self.proce0 = Processor(0)
+        self.proce1 = Processor(1)
+        self.proce2 = Processor(2)
+        self.proce3 = Processor(3)
+        self.lock = Lock()
         
-        while(True):
-            p0_thread.start()  
-            p1_thread.start() 
-            p2_thread.start() 
-            p3_thread.start()
-    """
+        while True:
+            self.p0_thread = Thread(target = self.execute, args = (0,))
+            self.p1_thread = Thread(target = self.execute, args = (1,))
+            self.p2_thread = Thread(target = self.execute, args = (2,))
+            self.p3_thread = Thread(target = self.execute, args = (3,))
+
+            self.p0_thread.start()  
+            self.p1_thread.start() 
+            self.p2_thread.start() 
+            self.p3_thread.start()
+
+            self.p0_thread.join()  
+            self.p1_thread.join() 
+            self.p2_thread.join() 
+            self.p3_thread.join()
+
+    #Function to execute a task
+    def execute(self, processor):
+        instruction = ""
+        if processor == 0:
+            instruction = self.proce0.instruction_generator()
+        if processor == 1:
+            instruction = self.proce1.instruction_generator()
+        if processor == 2:
+            instruction = self.proce2.instruction_generator()
+        if processor == 3:
+            instruction = self.proce3.instruction_generator()
+        self.lock.acquire()
+        print("Instruction generated ---> " + instruction)
+        instruction_list = self.separate_instruction(instruction)
+        print(instruction_list)
+        instruction_processor = instruction_list[0]
+        if instruction_list[1] != "CALC": 
+            instruction_state = self.mem.get_cache_block_state(int(instruction_processor), self.mem.get_cache_index(instruction_list[2]))
+            instruction_operation = instruction_list[1]
+            instruction_address = instruction_list[2]
+            instruction_value = instruction_list[3]
+            self.change_state(int(instruction_processor), instruction_state, instruction_address, instruction_value, instruction_operation)
+            self.mem.print_cache()
+            self.mem.print_memory()
+        else:
+            print("CALC Executed")
+            #show CALC
+        self.lock.release()
+        time.sleep(self.wait_time)
 
     #Function to change state in cache block
     def change_state(self, processor, current_state, address, value, action):
@@ -94,20 +132,6 @@ class Controller:
             return instruction_parts
     
 cont = Controller()
-instruction = cont.proce.instruction_generator()
-print("Instrucción: " + instruction)
-instruction_list = cont.separate_instruction(instruction)
-print(instruction_list)
-instruction_processor = instruction_list[0]
-if instruction_list[1] != "CALC": 
-    instruction_state = cont.mem.get_cache_block_state(int(instruction_processor), cont.mem.get_cache_index(instruction_list[2]))
-    instruction_operation = instruction_list[1]
-    instruction_address = instruction_list[2]
-    instruction_value = instruction_list[3]
-
-    cont.change_state(int(instruction_processor), instruction_state, instruction_address, instruction_value, instruction_operation)
-    cont.mem.print_cache()
-    cont.mem.print_memory()
 
 #print("Instrucción P0: WRITE 010;ABCD")
 #cont.change_state(0, "I", "010", "ABCD", "WRITE")
