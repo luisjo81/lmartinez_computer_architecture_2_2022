@@ -1,5 +1,5 @@
 from memory import Memory
-#import Processor
+#from processor import Processor
 #import Gui
 
 import threading
@@ -9,7 +9,6 @@ class Controller:
     def __init__(self):
         self.wait_time = 3
         self.mem = Memory()
-
     """
     def threads_manager(self):
         p0_thread = threading.Thread(target = processor, args = ())
@@ -104,12 +103,17 @@ cont = Controller()
 #cont.mem.print_cache()
 #cont.mem.print_memory()
 
-print("Instrucción P1: WRITE 000;1010")
-cont.change_state(1, 0, "I", "000", "1010", "WRITE")
-cont.mem.print_cache()
-cont.mem.print_memory()
+#print("Instrucción P1: WRITE 000;1010")
+#cont.change_state(1, 0, "I", "000", "1010", "WRITE")
+#cont.mem.print_cache()
+#cont.mem.print_memory()
 
-print("Instrucción P3: WRITE 000;CDEF")
-cont.change_state(3, 0, "I", "000", "CDEF", "WRITE")
-cont.mem.print_cache()
-cont.mem.print_memory()
+#print("Instrucción P3: WRITE 000;CDEF")
+#cont.change_state(3, 0, "I", "000", "CDEF", "WRITE")
+#cont.mem.print_cache()
+#cont.mem.print_memory()
+
+#print("Instrucción P2: READ 111")
+#cont.change_state(2, 4, "M", "111", "", "READ")
+#cont.mem.print_cache()
+#cont.mem.print_memory()
