@@ -13,10 +13,10 @@ class Memory:
         self.main_memory = [["000","0000"], ["001", "0000"], ["010", "0000"], ["011", "0000"], ["100", "0000"], ["101", "0000"], ["110", "0000"], ["111", "0000"]] 
 
         """ 
-            Processor Cache = [[B0 state, B0 address, B0 value, B0 valid bit],
-                               [B1 state, B1 address, B1 value, B1 valid bit],
-                               [B2 state, B2 address, B2 value, B2 valid bit],
-                               [B3 state, B3 address, B3 value, B3 valid bit]]
+            Processor Cache = [[B0 state, B0 address, B0 value],
+                               [B1 state, B1 address, B1 value],
+                               [B2 state, B2 address, B2 value],
+                               [B3 state, B3 address, B3 value]]
         """
         self.p0_cache = [["I", "XXX", "0000"], ["I", "XXX", "0000"], ["I", "XXX", "0000"], ["I", "XXX", "0000"]]
         self.p1_cache = [["I", "XXX", "0000"], ["I", "XXX", "0000"], ["I", "XXX", "0000"], ["I", "XXX", "0000"]]
