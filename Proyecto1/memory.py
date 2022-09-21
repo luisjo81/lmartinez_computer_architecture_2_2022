@@ -1,3 +1,5 @@
+import time
+
 class Memory:
     def __init__(self):
         """
@@ -25,10 +27,12 @@ class Memory:
 
     def read_from_memory(self, address):
         address_index = int(address, 2)
+        time.sleep(1)
         return self.main_memory[address_index][1]
 
     def write_to_memory(self, address, value):
         address_index = int(address, 2)
+        time.sleep(1)
         self.main_memory[address_index][1] = value
 
     def write_to_cache(self, mem_address, cache_num, value):
@@ -59,76 +63,113 @@ class Memory:
     def read_from_other_cache(self, processor, address):
         if processor == 0:
             for i in self.p1_cache:
-                if i[1] == address:
+                if (i[1] == address) and (i[0] == "E"):
                     print("Address " + str(address) + " found on cache from P1")
+                    self.change_cache_block_state(processor, address, "S")
+                    print("P1:B" + str(self.get_cache_index(address)) + " Changed to S")
                     self.modify_watchers_read(processor, address)
-                    return i[2]
+                    self.write_to_cache(address, 0, self.read_from_memory(address))
             for i in self.p2_cache:
-                if i[1] == address:
+                if (i[1] == address) and (i[0] == "E"):
                     print("Address " + str(address) + " found on cache from P2")
+                    self.change_cache_block_state(processor, address, "S")
+                    print("P2:B" + str(self.get_cache_index(address)) + " Changed to S")
                     self.modify_watchers_read(processor, address)
-                    return i[2]
+                    self.write_to_cache(address, 0, self.read_from_memory(address))
             for i in self.p3_cache:
-                if i[1] == address:
+                if (i[1] == address) and (i[0] == "E"):
                     print("Address " + str(address) + " found on cache from P3")
+                    self.change_cache_block_state(processor, address, "S")
+                    print("P3:B" + str(self.get_cache_index(address)) + " Changed to S")
                     self.modify_watchers_read(processor, address)
-                    return i[2]
-            print("Address " + str(address) + " not nound on any cache. Retrieving value from memory")
-            return self.read_from_memory(address)
+                    self.write_to_cache(address, 0, self.read_from_memory(address))
+            print("Address " + str(address) + " not found on any cache. Retrieving value from memory")
+            self.change_cache_block_state(processor, address, "E")
+            print("P0:B" + str(self.get_cache_index(address)) + " Changed to E")
+            self.modify_watchers_read(processor, address)
+            self.write_to_cache(address, 0, self.read_from_memory(address))
         if processor == 1:
             for i in self.p0_cache:
-                if i[1] == address:
+                if (i[1] == address) and (i[0] == "E"):
                     print("Address " + str(address) + " found on cache from P0")
+                    self.change_cache_block_state(processor, address, "S")
+                    print("P0:B" + str(self.get_cache_index(address)) + " Changed to S")
                     self.modify_watchers_read(processor, address)
-                    return i[2]
+                    self.write_to_cache(address, 1, self.read_from_memory(address))
             for i in self.p2_cache:
-                if i[1] == address:
+                if (i[1] == address) and (i[0] == "E"):
                     print("Address " + str(address) + " found on cache from P2")
+                    self.change_cache_block_state(processor, address, "S")
+                    print("P2:B" + str(self.get_cache_index(address)) + " Changed to S")
                     self.modify_watchers_read(processor, address)
-                    return i[2]
+                    self.write_to_cache(address, 1, self.read_from_memory(address))
             for i in self.p3_cache:
-                if i[1] == address:
+                if (i[1] == address) and (i[0] == "E"):
                     print("Address " + str(address) + " found on cache from P3")
+                    self.change_cache_block_state(processor, address, "S")
+                    print("P3:B" + str(self.get_cache_index(address)) + " Changed to S")
                     self.modify_watchers_read(processor, address)
-                    return i[2]
-            print("Address " + str(address) + " not nound on any cache. Retrieving value from memory")
-            return self.read_from_memory(address)
+                    self.write_to_cache(address, 1, self.read_from_memory(address))
+            print("Address " + str(address) + " not found on any cache. Retrieving value from memory")
+            self.change_cache_block_state(processor, address, "E")
+            print("P1:B" + str(self.get_cache_index(address)) + " Changed to E")
+            self.modify_watchers_read(processor, address)
+            self.write_to_cache(address, 1, self.read_from_memory(address))
+            
         if processor == 2:
             for i in self.p0_cache:
-                if i[1] == address:
+                if (i[1] == address) and (i[0] == "E"):
                     print("Address " + str(address) + " found on cache from P0")
+                    self.change_cache_block_state(processor, address, "S")
+                    print("P0:B" + str(self.get_cache_index(address)) + " Changed to S")
                     self.modify_watchers_read(processor, address)
-                    return i[2]
+                    self.write_to_cache(address, 2, self.read_from_memory(address))
             for i in self.p1_cache:
-                if i[1] == address:
+                if (i[1] == address) and (i[0] == "E"):
                     print("Address " + str(address) + " found on cache from P1")
+                    self.change_cache_block_state(processor, address, "S")
+                    print("P1:B" + str(self.get_cache_index(address)) + " Changed to S")
                     self.modify_watchers_read(processor, address)
-                    return i[2]
+                    self.write_to_cache(address, 2, self.read_from_memory(address))
             for i in self.p3_cache:
-                if i[1] == address:
+                if (i[1] == address) and (i[0] == "E"):
                     print("Address " + str(address) + " found on cache from P3")
+                    self.change_cache_block_state(processor, address, "S")
+                    print("P3:B" + str(self.get_cache_index(address)) + " Changed to S")
                     self.modify_watchers_read(processor, address)
-                    return i[2]
-            print("Address " + str(address) + " not nound on any cache. Retrieving value from memory")
-            return self.read_from_memory(address)
+                    self.write_to_cache(address, 2, self.read_from_memory(address))
+            print("Address " + str(address) + " not found on any cache. Retrieving value from memory")
+            self.change_cache_block_state(processor, address, "E")
+            print("P2:B" + str(self.get_cache_index(address)) + " Changed to E")
+            self.modify_watchers_read(processor, address)
+            self.write_to_cache(address, 2, self.read_from_memory(address))
         if processor == 3:
             for i in self.p0_cache:
-                if i[1] == address:
+                if (i[1] == address) and (i[0] == "E"):
                     print("Address " + str(address) + " found on cache from P0")
+                    self.change_cache_block_state(processor, address, "S")
+                    print("P0:B" + str(self.get_cache_index(address)) + " Changed to S")
                     self.modify_watchers_read(processor, address)
-                    return i[2]
+                    self.write_to_cache(address, 3, self.read_from_memory(address))
             for i in self.p1_cache:
-                if i[1] == address:
+                if (i[1] == address) and (i[0] == "E"):
                     print("Address " + str(address) + " found on cache from P1")
-                    self.modify_watchers_read(processor,address)
-                    return i[2]
-            for i in self.p2_cache:
-                if i[1] == address:
-                    print("Address " + str(address) + " found on cache from P2")
+                    self.change_cache_block_state(processor, address, "S")
+                    print("P1:B" + str(self.get_cache_index(address)) + " Changed to S")
                     self.modify_watchers_read(processor, address)
-                    return i[2]
-            print("Address " + str(address) + " not nound on any cache. Retrieving value from memory")
-            return self.read_from_memory(address)
+                    self.write_to_cache(address, 3, self.read_from_memory(address))
+            for i in self.p2_cache:
+                if (i[1] == address) and (i[0] == "E"):
+                    print("Address " + str(address) + " found on cache from P2")
+                    self.change_cache_block_state(processor, address, "S")
+                    print("P2:B" + str(self.get_cache_index(address)) + " Changed to S")
+                    self.modify_watchers_read(processor, address)
+                    self.write_to_cache(address, 3, self.read_from_memory(address))
+            print("Address " + str(address) + " not found on any cache. Retrieving value from memory")
+            self.change_cache_block_state(processor, address, "E")
+            print("P3:B" + str(self.get_cache_index(address)) + " Changed to E")
+            self.modify_watchers_read(processor, address)
+            self.write_to_cache(address, 3, self.read_from_memory(address))
     
     #Function to get the actual state of a cache block
     def get_cache_block_state(self, processor, block):
@@ -455,29 +496,22 @@ class Memory:
 
     #Function to change the state of a block in a cache
     def change_cache_block_state(self, processor, address, new_state):
+        block = self.get_cache_index(address)
         if processor == 0:
-            for i in self.p0_cache:
-                if (i[1] == address):
-                    i[0] = new_state
+            self.p0_cache[block][0] = new_state
         if processor == 1:
-            for i in self.p1_cache:
-                if (i[1] == address):
-                    i[0] = new_state
+            self.p1_cache[block][0] = new_state
         if processor == 2:
-            for i in self.p2_cache:
-                if (i[1] == address):
-                    i[0] = new_state
+            self.p2_cache[block][0] = new_state
         if processor == 3:
-            for i in self.p3_cache:
-                if (i[1] == address):
-                    i[0] = new_state
+            self.p3_cache[block][0] = new_state
 
     #Function to get cache index based on the one-way associativity
     def get_cache_index(self, mem_address):
         if (mem_address == "000") or (mem_address == "100"):
             return 0
         if (mem_address == "001") or (mem_address == "101"):
-                return 1
+            return 1
         if (mem_address == "010") or (mem_address == "110"):
             return 2
         if (mem_address == "011") or (mem_address == "111"):
@@ -563,21 +597,22 @@ class Memory:
     
     #Function to print the memory
     def print_memory(self):
-        print("--------------------------------------------------------------MEMORY--------------------------------------------------------------------")
-        print(self.main_memory)
-        print("----------------------------------------------------------------------------------------------------------------------------------------")
+        print("----MEMORY-----")
+        print(self.main_memory[0])
+        print(self.main_memory[1])
+        print(self.main_memory[2])
+        print(self.main_memory[3])
+        print(self.main_memory[4])
+        print(self.main_memory[5])
+        print(self.main_memory[6])
+        print(self.main_memory[7])
+        print("---------------")
 
     #Function to print the caches
     def print_cache(self):
-        print("--------------------------------------------------------------CACHE 0-------------------------------------------------------------------")
-        print(self.p0_cache)
-        print("----------------------------------------------------------------------------------------------------------------------------------------")
-        print("--------------------------------------------------------------CACHE 1-------------------------------------------------------------------")
-        print(self.p1_cache)
-        print("----------------------------------------------------------------------------------------------------------------------------------------")
-        print("--------------------------------------------------------------CACHE 2-------------------------------------------------------------------")
-        print(self.p2_cache)
-        print("----------------------------------------------------------------------------------------------------------------------------------------")
-        print("--------------------------------------------------------------CACHE 3-------------------------------------------------------------------")
-        print(self.p3_cache)
-        print("----------------------------------------------------------------------------------------------------------------------------------------")
+        print("-----------P0------------|-------------P1------------|-------------P2------------|-------------P3-----------")
+        print("B0: " + str(self.p0_cache[0]) + " |  B0: " + str(self.p1_cache[0]) + " |  B0: " + str(self.p2_cache[0]) + " |  B0: " + str(self.p3_cache[0]))
+        print("B1: " + str(self.p0_cache[1]) + " |  B1: " + str(self.p1_cache[1]) + " |  B1: " + str(self.p2_cache[1]) + " |  B1: " + str(self.p3_cache[1]))
+        print("B2: " + str(self.p0_cache[2]) + " |  B2: " + str(self.p1_cache[2]) + " |  B2: " + str(self.p2_cache[2]) + " |  B2: " + str(self.p3_cache[2]))
+        print("B3: " + str(self.p0_cache[3]) + " |  B3: " + str(self.p1_cache[3]) + " |  B3: " + str(self.p2_cache[3]) + " |  B3: " + str(self.p3_cache[3]))
+        print("------------------------------------------------------------------------------------------------------------")

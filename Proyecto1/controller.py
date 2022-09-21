@@ -19,6 +19,7 @@ class Controller:
        
         while True:
             window.update()
+            time.sleep(5)
 
             self.p0_thread = Thread(target = self.execute, args = (0,))
             self.p1_thread = Thread(target = self.execute, args = (1,))
@@ -268,7 +269,6 @@ class Controller:
             print("CALC Executed")
         
         self.lock.release()
-        time.sleep(3)
 
     #Function to change state in cache block
     def change_state(self, processor, current_state, address, value, action):
@@ -384,13 +384,19 @@ class Controller:
                         alert2 = " Cache Read Miss"
                     if processor == 3:
                         alert3 = " Cache Read Miss"
-                    read_value = self.mem.read_from_other_cache(processor, address)
-                    if self.mem.is_latest_value_in_memory(address, read_value) == True:
-                        print("P" + str(processor) + ":B" + str(block) + " Changed to E")
-                        self.mem.change_cache_block_state(processor, address, "E")
-                    else:
-                        print("P" + str(processor) + ":B" + str(block) + " Changed to S")
-                        self.mem.change_cache_block_state(processor, address, "S")
+                    self.mem.read_from_other_cache(processor, address)
+                else:
+                    print("P" + str(processor) + " Cache Read Hit")
+                    if processor == 0:
+                        alert0 = " Cache Read Hit"
+                    if processor == 1:
+                        alert1 = " Cache Read Hit"
+                    if processor == 2:
+                        alert2 = " Cache Read Hit"
+                    if processor == 3:
+                        alert3 = " Cache Read Hit"
+                    print("P" + str(processor) + ":B" + str(block) + " Changed to S")
+                    self.mem.change_cache_block_state(processor, address, "S")
             if action == "WRITE":
                 print("P" + str(processor) + " Cache Write Hit")
                 if processor == 0:
@@ -627,6 +633,10 @@ enter_button.configure(bg = 'snow4')
 enter_button['font'] = font.Font(family ='Helvetica', size = 11, weight = 'bold')
 enter_button.place(x = 325, y = 550)
 
+#Instruction Input
+instruction_input = tk.Entry(width = 20, font = font.Font(family = "Helvetica", size = 15))
+instruction_input.place(x = 60, y = 553)
+
 #Display Information
 latest_instructions = tk.Label(window, text = "Latest instructions", width = 25, height = 1, justify = tk.LEFT)
 latest_instructions.configure(bg = 'azure2', fg = 'black', font = font.Font(family ='Helvetica', size = 15, weight = 'bold'))
@@ -672,37 +682,25 @@ alert3 = ""
 #Main instance
 cont = Controller()
 
-# print("Instrucción P0: WRITE 010;ABCD")
+
+#Console debug in case of problems with threading
+
+# print("Instruction P0: WRITE 010;ABCD")
 # cont.change_state(0, "I", "010", "ABCD", "WRITE")
 # cont.mem.print_cache()
 # cont.mem.print_memory()
 
-# print("Instrucción P2: WRITE 010;0111")
+# print("Instruction P2: WRITE 010;0111")
 # cont.change_state(2, "I", "010", "0111", "WRITE")
 # cont.mem.print_cache()
 # cont.mem.print_memory()
 
-# print("Instrucción P1: READ 010")
+# print("Instruction P1: READ 010")
 # cont.change_state(1, "I", "010", "", "READ")
 # cont.mem.print_cache()
 # cont.mem.print_memory()
 
-#print("Instrucción P2: WRITE 111;01EC")
-#cont.change_state(2, "I", "111", "01EC", "WRITE")
-#cont.mem.print_cache()
-#cont.mem.print_memory()
-
-#print("Instrucción P1: WRITE 000;1010")
-#cont.change_state(1, "I", "000", "1010", "WRITE")
-#cont.mem.print_cache()
-#cont.mem.print_memory()
-
-#print("Instrucción P3: WRITE 000;CDEF")
-#cont.change_state(3, "I", "000", "CDEF", "WRITE")
-#cont.mem.print_cache()
-#cont.mem.print_memory()
-
-#print("Instrucción P2: READ 111")
-#cont.change_state(2, "M", "111", "", "READ")
-#cont.mem.print_cache()
-#cont.mem.print_memory()
+# print("Instruction P3: READ 010")
+# cont.change_state(3, "I", "010", "", "READ")
+# cont.mem.print_cache()
+# cont.mem.print_memory()
