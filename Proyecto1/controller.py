@@ -238,6 +238,7 @@ class Controller:
         
     #Function to execute an instruction
     def execute(self, processor):
+        self.lock.acquire()
         global instruction, instructionP0, instructionP1, instructionP2, instructionP3
         if processor == 0:
             instruction = self.proce0.instruction_generator()
@@ -251,7 +252,6 @@ class Controller:
         if processor == 3:
             instruction = self.proce3.instruction_generator()
             instructionP3 = instruction
-        self.lock.acquire()
         print("Instruction generated ---> " + instruction)
         instruction_list = self.separate_instruction(instruction)
         print(instruction_list)
@@ -266,10 +266,9 @@ class Controller:
             self.mem.print_memory()
         else:
             print("CALC Executed")
-            #show CALC
         
         self.lock.release()
-        time.sleep(self.wait_time)
+        time.sleep(3)
 
     #Function to change state in cache block
     def change_state(self, processor, current_state, address, value, action):
@@ -673,10 +672,20 @@ alert3 = ""
 #Main instance
 cont = Controller()
 
-#print("Instrucción P0: WRITE 010;ABCD")
-#cont.change_state(0, "I", "010", "ABCD", "WRITE")
-#cont.mem.print_cache()
-#cont.mem.print_memory()
+# print("Instrucción P0: WRITE 010;ABCD")
+# cont.change_state(0, "I", "010", "ABCD", "WRITE")
+# cont.mem.print_cache()
+# cont.mem.print_memory()
+
+# print("Instrucción P2: WRITE 010;0111")
+# cont.change_state(2, "I", "010", "0111", "WRITE")
+# cont.mem.print_cache()
+# cont.mem.print_memory()
+
+# print("Instrucción P1: READ 010")
+# cont.change_state(1, "I", "010", "", "READ")
+# cont.mem.print_cache()
+# cont.mem.print_memory()
 
 #print("Instrucción P2: WRITE 111;01EC")
 #cont.change_state(2, "I", "111", "01EC", "WRITE")

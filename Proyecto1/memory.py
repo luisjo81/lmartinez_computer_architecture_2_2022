@@ -154,10 +154,10 @@ class Memory:
                         print("Write-back on Address " + str(address))
                         self.write_to_memory(address, i[2])
                         print("P1:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(1, address, "S")
                     if i[0] == "E":
                         print("P1:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(1, address, "S")
                 block = block + 1
             block = 0
             for i in self.p2_cache:
@@ -166,10 +166,10 @@ class Memory:
                         print("Write-back on Address " + address)
                         self.write_to_memory(address, i[2])
                         print("P2:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(2, address, "S")
                     if i[0] == "E":
                         print("P2:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(2, address, "S")
                 block = block + 1
             block = 0
             for i in self.p3_cache:
@@ -178,10 +178,10 @@ class Memory:
                         print("Write-back on Address " + address)
                         self.write_to_memory(address, i[2])
                         print("P3:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(3, address, "S")
                     if i[0] == "E":
                         print("P3:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(3, address, "S")
                 block = block + 1
         if processor == 1:
             block = 0
@@ -191,10 +191,10 @@ class Memory:
                         print("Write-back on Address " + str(address))
                         self.write_to_memory(address, i[2])
                         print("P0:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(0, address, "S")
                     if i[0] == "E":
                         print("P0:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(0, address, "S")
                 block = block + 1
             block = 0
             for i in self.p2_cache:
@@ -203,10 +203,10 @@ class Memory:
                         print("Write-back on Address " + address)
                         self.write_to_memory(address, i[2])
                         print("P2:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(2, address, "S")
                     if i[0] == "E":
                         print("P2:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(2, address, "S")
                 block = block + 1
             block = 0
             for i in self.p3_cache:
@@ -215,10 +215,10 @@ class Memory:
                         print("Write-back on Address " + address)
                         self.write_to_memory(address, i[2])
                         print("P3:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(3, address, "S")
                     if i[0] == "E":
                         print("P3:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(3, address, "S")
                 block = block + 1
         if processor == 2:
             block = 0
@@ -228,10 +228,10 @@ class Memory:
                         print("Write-back on Address " + address)
                         self.write_to_memory(address, i[2])
                         print("P0:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(0, address, "S")
                     if i[0] == "E":
                         print("P0:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(0, address, "S")
                 block = block + 1
             block = 0
             for i in self.p1_cache:
@@ -240,10 +240,10 @@ class Memory:
                         print("Write-back on Address " + address)
                         self.write_to_memory(address, i[2])
                         print("P1:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(1, address, "S")
                     if i[0] == "E":
                         print("P1:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(1, address, "S")
                 block = block + 1
             block = 0
             for i in self.p3_cache:
@@ -252,10 +252,10 @@ class Memory:
                         print("Write-back on Address " + address)
                         self.write_to_memory(address, i[2])
                         print("P3:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(3, address, "S")
                     if i[0] == "E":
                         print("P3:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(3, address, "S")
                 block = block + 1
         if processor == 3:
             block = 0
@@ -265,10 +265,10 @@ class Memory:
                         print("Write-back on Address " + address)
                         self.write_to_memory(address, i[2])
                         print("P0:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(0, address, "S")
                     if i[0] == "E":
                         print("P0:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(0, address, "S")
                 block = block + 1
             block = 0
             for i in self.p1_cache:
@@ -277,10 +277,10 @@ class Memory:
                         print("Write-back on Address " + address)
                         self.write_to_memory(address, i[2])
                         print("P1:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(1, address, "S")
                     if i[0] == "E":
                         print("P1:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(1, address, "S")
                 block = block + 1
             block = 0
             for i in self.p2_cache:
@@ -289,13 +289,13 @@ class Memory:
                         print("Write-back on Address " + address)
                         self.write_to_memory(address, i[2])
                         print("P2:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(2, address, "S")
                     if i[0] == "E":
                         print("P2:B" + str(block) + " Changed to S")
-                        self.change_cache_block_state(processor, address, "S")
+                        self.change_cache_block_state(2, address, "S")
                 block = block + 1
 
-    #Function to modify the state of blocks when an addressis being written in another cache
+    #Function to modify the state of blocks when an address is being written in another cache
     def modify_watchers_write(self, processor, address):
         #processor: cache where the address is taken
         #address: address to check
@@ -452,7 +452,7 @@ class Memory:
                         print("P2:B" + str(block) + " Changed to I")
                         self.change_cache_block_state(2, address, "I")
                 block = block + 1
-    
+
     #Function to change the state of a block in a cache
     def change_cache_block_state(self, processor, address, new_state):
         if processor == 0:

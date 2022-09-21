@@ -78,3 +78,12 @@ class Processor:
             hex_value = "0" + hex_value
             size += 1
         return hex_value
+
+#proce = Processor(0)
+#print(proce.instruction_generator())
+#proce = Processor(1)
+#print(proce.instruction_generator())
+#proce = Processor(2)
+#print(proce.instruction_generator())
+#proce = Processor(3)
+#print(proce.instruction_generator())
